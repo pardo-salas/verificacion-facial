@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Verificación facial</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header>
+    <div>
+      <h1>Verificación facial</h1>
+      <p class="sub">Compara una foto contra las fotos registradas de una persona. Funciona con cubrebocas y lentes.</p>
+    </div>
+    <span id="estado-api" class="chip">Conectando…</span>
+  </header>
+
+  <main>
+    <section class="panel">
+      <h2>1. Fotos de referencia</h2>
+      <p class="ayuda">Sube de 1 a 5 fotos de la persona. Tip: incluye una con cubrebocas y otra sin él.</p>
+      <label class="zona">
+        <input type="file" id="referencias" accept="image/*" multiple>
+        <span>Elegir fotos</span>
+      </label>
+      <div id="vista-referencias" class="miniaturas"></div>
+    </section>
+
+    <section class="panel">
+      <h2>2. Foto a verificar</h2>
+      <p class="ayuda">Sube una foto o tómala con la cámara.</p>
+      <div class="fila">
+        <label class="zona">
+          <input type="file" id="prueba" accept="image/*">
+          <span>Elegir foto</span>
+        </label>
+        <button type="button" id="btn-camara" class="secundario">Usar cámara</button>
+      </div>
+      <div id="camara" class="oculto">
+        <video id="video" autoplay playsinline muted></video>
+        <button type="button" id="btn-capturar">Capturar</button>
+      </div>
+      <canvas id="lienzo" class="oculto"></canvas>
+      <div id="vista-prueba" class="miniaturas"></div>
+    </section>
+
+    <section class="panel ancho">
+      <button type="button" id="btn-verificar" disabled>Verificar identidad</button>
+      <div id="resultado" class="oculto" aria-live="polite"></div>
+    </section>
+  </main>
+
+  <footer>Las imágenes se procesan en memoria y no se almacenan en el servidor.</footer>
+
+  <script src="config.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

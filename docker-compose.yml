@@ -1,0 +1,31 @@
+# Levanta el sistema completo en local:
+#   backend  -> API FastAPI en http://localhost:8000 (Swagger en /docs)
+#   frontend -> interfaz web en http://localhost:8080
+services:
+  backend:
+    build:
+      context: .
+      target: runtime
+    image: verificacion-facial-api:1.0.0
+    container_name: vf-backend
+    ports:
+      - "8000:8000"
+    environment:
+      UMBRAL_SIMILITUD: "0.363"
+      MAX_MB_IMAGEN: "5"
+      CORS_ORIGINS: "http://localhost:8080,http://127.0.0.1:8080"
+    restart: unless-stopped
+
+  frontend:
+    build: ./frontend
+    image: verificacion-facial-web:1.0.0
+    container_name: vf-frontend
+    ports:
+      - "8080:80"
+    environment:
+      # Es la URL que usa el NAVEGADOR, por eso es localhost y no "backend"
+      API_URL: "http://localhost:8000"
+    depends_on:
+      backend:
+        condition: service_healthy
+    restart: unless-stopped

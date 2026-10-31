@@ -1,0 +1,16 @@
+.git
+.github
+**/__pycache__
+**/*.pyc
+.pytest_cache
+.venv
+venv
+models/*.onnx
+datos_evaluacion/fotos
+tests/data/*.jpg
+tests/data/*.jpeg
+tests/data/*.png
+docs
+frontend
+*.md
+!README.md

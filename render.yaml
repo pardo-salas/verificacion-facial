@@ -1,0 +1,28 @@
+# Blueprint de Render (infraestructura como código).
+# Render lee este archivo y crea los dos servicios automáticamente.
+services:
+  - type: web
+    name: verificacion-facial-api
+    runtime: docker
+    dockerfilePath: ./Dockerfile
+    dockerContext: .
+    plan: free
+    region: oregon
+    healthCheckPath: /api/v1/health
+    autoDeploy: true
+    envVars:
+      - key: UMBRAL_SIMILITUD
+        value: "0.363"
+      - key: MAX_MB_IMAGEN
+        value: "5"
+      - key: CORS_ORIGINS
+        value: https://verificacion-facial-web.onrender.com
+
+  - type: web
+    name: verificacion-facial-web
+    runtime: static
+    buildCommand: sh frontend/generar_config.sh frontend/config.js
+    staticPublishPath: ./frontend
+    envVars:
+      - key: API_URL
+        value: https://verificacion-facial-api.onrender.com

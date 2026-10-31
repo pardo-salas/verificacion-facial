@@ -1,0 +1,14 @@
+__pycache__/
+*.pyc
+.pytest_cache/
+.venv/
+venv/
+.env
+# Modelos: se descargan con scripts/descargar_modelos.py
+models/*.onnx
+# Datos biométricos: NUNCA se suben al repositorio
+datos_evaluacion/fotos/
+datos_evaluacion/resultados*.csv
+tests/data/*.jpg
+tests/data/*.jpeg
+tests/data/*.png

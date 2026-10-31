@@ -1,0 +1,12 @@
+referencia,prueba,misma_persona,escenario
+fotos/persona_a_1.jpg,fotos/persona_a_2.jpg,1,sin_oclusion
+fotos/persona_a_1.jpg,fotos/persona_b_1.jpg,0,sin_oclusion
+fotos/persona_a_1.jpg,fotos/persona_a_lentes.jpg,1,lentes
+fotos/persona_a_1.jpg,fotos/persona_b_lentes.jpg,0,lentes
+fotos/persona_a_1.jpg,fotos/persona_a_cubrebocas.jpg,1,cubrebocas
+fotos/persona_a_1.jpg,fotos/persona_b_cubrebocas.jpg,0,cubrebocas
+fotos/persona_a_1.jpg,fotos/persona_a_cubrebocas_lentes.jpg,1,cubrebocas_y_lentes
+fotos/persona_a_1.jpg,fotos/persona_b_cubrebocas_lentes.jpg,0,cubrebocas_y_lentes
+fotos/persona_a_1.jpg,fotos/persona_a_poca_luz.jpg,1,poca_luz
+fotos/persona_a_1.jpg|fotos/persona_a_cubrebocas.jpg,fotos/persona_a_cubrebocas_lentes.jpg,1,cubrebocas_referencia_multiple
+fotos/persona_a_1.jpg|fotos/persona_a_cubrebocas.jpg,fotos/persona_b_cubrebocas.jpg,0,cubrebocas_referencia_multiple
