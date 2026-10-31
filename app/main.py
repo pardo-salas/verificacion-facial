@@ -88,6 +88,19 @@ async def manejar_sin_rostro(_: Request, exc: RostroNoDetectadoError):
 
 
 def obtener_verificador(request: Request) -> VerificadorFacial:
+    """Obtiene el verificador facial disponible en el estado de la aplicación.
+
+    Args:
+        request: Solicitud HTTP cuyo estado de aplicación contiene el
+            verificador facial.
+
+    Returns:
+        Instancia del verificador facial inicializado.
+
+    Raises:
+        HTTPException: Con código 503 si el modelo no está disponible.
+        No lanza excepciones HTTP 400, 413 ni 415.
+    """
     verificador = request.app.state.verificador
     if verificador is None:
         raise HTTPException(503, detail=f"Modelo no disponible: {request.app.state.error_modelo}")
@@ -95,7 +108,21 @@ def obtener_verificador(request: Request) -> VerificadorFacial:
 
 
 async def leer_imagen(archivo: UploadFile, etiqueta: str) -> bytes:
-    """Valida tipo, tamaño y contenido de un archivo subido."""
+    """Lee y valida una imagen subida.
+
+    Args:
+        archivo: Archivo subido cuya imagen se debe leer.
+        etiqueta: Nombre descriptivo usado en los mensajes de error.
+
+    Returns:
+        El contenido del archivo validado, en bytes.
+
+    Raises:
+        HTTPException: Con código 400 si el archivo está vacío.
+        HTTPException: Con código 413 si el archivo supera el tamaño máximo
+            configurado.
+        HTTPException: Con código 415 si el tipo de archivo no es compatible.
+    """
     tipo = (archivo.content_type or "").lower()
     es_imagen = tipo.startswith("image/") and "svg" not in tipo
     if tipo and not (es_imagen or tipo == "application/octet-stream"):
@@ -110,6 +137,18 @@ async def leer_imagen(archivo: UploadFile, etiqueta: str) -> bytes:
 
 
 def a_respuesta(rostro: Rostro) -> RostroRespuesta:
+    """Convierte un rostro detectado al esquema de respuesta de la API.
+
+    Args:
+        rostro: Rostro detectado con sus coordenadas, confianza, indicadores
+            y advertencias.
+
+    Returns:
+        Representación del rostro con la caja delimitadora y sus metadatos.
+
+    Raises:
+        No lanza excepciones HTTP 400, 413 ni 415.
+    """
     x, y, w, h = rostro.caja
     return RostroRespuesta(
         caja=Caja(x=x, y=y, ancho=w, alto=h),
